@@ -1,8 +1,8 @@
-import React, { useState, useEffect }  from "react";
-import Form from "./components/Form/Form";
-import Header from "./components/Header/Header"
-import Resume from "./components/Resume/Resume";
+import React, { useEffect, useState } from "react";
 import GlobalStyle from "./styles/global";
+import Header from "./components/Header/Header.name";
+import Resume from "./components/Resume/Resume.name";
+import Form from "./components/Form/Form.name";
 
 const App = () => {
   const data = localStorage.getItem("transactions");
@@ -18,18 +18,18 @@ const App = () => {
       .filter((item) => item.expense)
       .map((transaction) => Number(transaction.amount));
 
-      const amountIncome = transactionsList
-        .filter((item) => !item.expense)
-        .map((transaction) => Number(transaction.amount));
+    const amountIncome = transactionsList
+      .filter((item) => !item.expense)
+      .map((transaction) => Number(transaction.amount));
 
-      const expense = amountExpense.reduce((acc, cur) => acc + cur, 0).toFixed(2);
-      const income = amountIncome.reduce((acc, cur) => acc + cur, 0).toFixed(2);
+    const expense = amountExpense.reduce((acc, cur) => acc + cur, 0).toFixed(2);
+    const income = amountIncome.reduce((acc, cur) => acc + cur, 0).toFixed(2);
 
-      const total = Math.abs(income - expense).toFixed(2);
+    const total = Math.abs(income - expense).toFixed(2);
 
-      setIncome(`R$ ${income}`);
-      setExpense(`R$ ${expense}`);
-      setTotal(`${Number(income) < Number(expense) ? "-" : ""}R$ ${total}`);
+    setIncome(`R$ ${income}`);
+    setExpense(`R$ ${expense}`);
+    setTotal(`${Number(income) < Number(expense) ? "-" : ""}R$ ${total}`);
   }, [transactionsList]);
 
   const handleAdd = (transaction) => {
@@ -44,10 +44,14 @@ const App = () => {
     <>
       <Header />
       <Resume income={income} expense={expense} total={total} />
-      <Form handleAdd={handleAdd} />
+      <Form
+        handleAdd={handleAdd}
+        transactionsList={transactionsList}
+        setTransactionsList={setTransactionsList}
+      />
       <GlobalStyle />
     </>
-  )
+  );
 };
 
-export default App
+export default App;

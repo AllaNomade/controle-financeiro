@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import * as Style from "./Form.styles"
+import Grid from "../Grid/Grid.name";
+import * as Style from "./Form.styles";
 
-const Form = ({ handleAdd }) => {
+const Form = ({ handleAdd, transactionsList, setTransactionsList }) => {
   const [desc, setDesc] = useState("");
   const [amount, setAmount] = useState("");
   const [isExpense, setExpense] = useState(false);
@@ -10,7 +11,7 @@ const Form = ({ handleAdd }) => {
 
   const handleSave = () => {
     if (!desc || !amount) {
-      alert("Informe a descrição e o valor");
+      alert("Informe a descrição e o valor!");
       return;
     } else if (amount < 1) {
       alert("O valor tem que ser positivo!");
@@ -30,9 +31,9 @@ const Form = ({ handleAdd }) => {
     setAmount("");
   };
 
-  return(
+  return (
     <>
-    <Style.Container>
+      <Style.Container>
         <Style.InputContent>
           <Style.Label>Descrição</Style.Label>
           <Style.Input value={desc} onChange={(e) => setDesc(e.target.value)} />
@@ -64,8 +65,9 @@ const Form = ({ handleAdd }) => {
         </Style.RadioGroup>
         <Style.Button onClick={handleSave}>ADICIONAR</Style.Button>
       </Style.Container>
+      <Grid itens={transactionsList} setItens={setTransactionsList} />
     </>
-  )
+  );
 };
 
 export default Form;
